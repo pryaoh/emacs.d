@@ -1,4 +1,4 @@
-;;; init.el --- -*- lexical-binding: t -*-
+;;; core-init.el --- -*- lexical-binding: t -*-
 ;;
 ;; CopyRight (C) 2007-2019 Younan oh
 
@@ -24,37 +24,13 @@
 
 ;;; Commentary:
 ;;
-;;  init file for yaoh-emacs
+;;  core file for yaoh-emacs
 ;;
 
 ;;; Code:
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ++Check Emacs Version++
-(when (version< emacs-version "26.1")
-  "Mininum required yaoh-emacs."
-  (error "Yaoh-emacs requires emacs 26.1 and above"))
-
-;; --Check Emacs Version--
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ++Optimize Startup++
-
-
-
-
-
-
-;; --Optimize Startup--
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; Start Server
-(require 'server)
-(unless (server-running-p)
-  (server-start))
 
 
 
