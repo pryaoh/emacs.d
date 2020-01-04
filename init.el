@@ -1,26 +1,12 @@
 ;;; init.el --- -*- lexical-binding: t -*-
 ;;
-;; CopyRight (C) 2007-2019 Younan oh
+;; CopyRight (C) 2008-2020 Younan oh
 
 ;; Author: Younan Oh <pryaoh@gmail.com>
 
 ;; This file is not part of GNU Emacs.
 ;;
-;; This program is free software; you can redistribute it and/or
-;; modify it under the terms of the GNU General Public License as
-;; published by the Free Software Foundation; either version 2, or
-;; (at your option) any later version.
-;;
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-;; General Public License for more details.
-;;
-;; You should have received a copy of the GNU General Public License
-;; along with this program; see the file COPYING.  If not, write to
-;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth
-;; Floor, Boston, MA 02110-1301, USA.
-;;
+;; LICENSE:MIT
 
 ;;; Commentary:
 ;;
@@ -43,12 +29,45 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ++Optimize Startup++
 
+(setq gc-cons-threshold-original gc-cons-threshold)
+(defvar upper-limit-gc-cons-threshold 104857600) ;; 100 MB
 
 
+(setq gc-cons-threshold upper-limit-gc-cons-threshold)
 
+(add-hook 'emacs-startup-hook
+          (lambda ()
+
+                  ;; GC automatically while unfocusing the frame
+                  (if (boundp 'after-focus-change-function)
+                    (add-function :after after-focus-change-function
+                                  (lambda ()
+                                          (unless (frame-focus-state)
+                                            (garbage-collect))))
+                    (add-hook 'after-focus-change-function 'garbage-collect))
+
+                  ;; Avoid GCs while using `ivy'/`counsel'/`swiper'
+                  (defun gc-minibuffer-setup-hook ()
+                    (setq gc-cons-threshold upper-limit-gc-cons-threshold))
+
+                  (defun gc-minibuffer-exit-hook ()
+                    (garbage-collect)
+                    (setq gc-cons-threshold gc-cons-threshold-original))
+
+                  (add-hook 'minibuffer-setup-hook #'gc-minibuffer-setup-hook)
+                  (add-hook 'minibuffer-exit-hook #'gc-minibuffer-exit-hook)))
 
 
 ;; --Optimize Startup--
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ++Update Load Paths++
+
+
+
+
+;; --Update Load Paths--
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Start Server
