@@ -19,20 +19,27 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ++Configure PackageManager++
 
-(setq package-user-dir (expand-file-name "elpa" user-emacs-directory)
-      package-archives
-      '(("gnu"   . "https://elpa.gnu.org/packages/")
-        ("melpa" . "https://melpa.org/packages/")
-        ("cselpa" . "https://elpa.thecybershadow.net/packages/")
-        ;; ("melpa-cn" . "http://mirrors.cloud.tencent.com/elpa/melpa/")
-        ;; ("gnu-cn"   . "http://mirrors.cloud.tencent.com/elpa/gnu/")
+;; avoid init.el, custom.el packaged-seleced-packages
+;; @See https://www.reddit.com/r/emacs/comments/4x655n/packageselectedpackages_always_appear_after/
+(defun package--save-selected-packages (&optional value)
+  "Set and save `package-selected-packages' to VALUE."
+  (when value
+    (setq package-selected-packages value)))
+
+
+;; set package files location
+;; @See https://www.gnu.org/software/emacs/manual/html_node/emacs/Package-Files.html#Package-Files
+(setq package-user-dir (expand-file-name "elpa" user-emacs-directory))
+
+;; Set Package Repository
+(setq package-archives
+      '( ("org"       . "http://orgmode.org/elpa/")
+			   ("gnu"       . "http://elpa.gnu.org/packages/")
+			   ("melpa-stable" . "https://stable.melpa.org/packages/")
+			   ("melpa"     . "http://melpa.org/packages/")
         ))
 
-;; package initialize
-(unless (bound-and-true-p package--initialized)
-  (setq package-enable-at-startup nil)          ; To prevent initializing twice
-  (package-initialize))
-
+≈
 ;; set use-package-verbose to t for interpreted .emacs,
 ;; and to nil for byte-compiled .emacs.elc.
 (eval-and-compile
@@ -62,17 +69,38 @@
 ;; ++AutoPackageUpdate++
 
 (use-package auto-package-update
-  :if (not (daemonp))
-  :custom
-  (auto-package-update-interval 7) ;; in days
-  (auto-package-update-prompt-before-update t)
-  (auto-package-update-delete-old-versions t)
-  (auto-package-update-hide-results t)
-  :config
-  (auto-package-update-maybe))
+  :init
+  (setq auto-package-update-interval 7 ;; in days
+      auto-package-update-prompt-before-update t
+      auto-package-update-delete-old-versions t
+      auto-package-update-hide-results t)
+  (defalias 'upgrade-packages #'auto-package-update-now))
+
 ;; --AutoPackageUpdate-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ++Paradox++
+(use-package paradox
+             :defer nil
+            ;; :custom
+             (paradox-github-token t) ;; prevent github intergration
+             :config
+             (paradox-enable))
+
+;; --Paradox--
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ++Diminish++
+
+(use-package diminish)
+
+;; --Diminish--
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(provide 'core-package)
 
 ;;; core-package.el ends here

@@ -6,22 +6,8 @@
 
 ;; This file is not part of GNU Emacs.
 ;;
-;; This program is free software; you can redistribute it and/or
-;; modify it under the terms of the GNU General Public License as
-;; published by the Free Software Foundation; either version 2, or
-;; (at your option) any later version.
+;; LICENSE:MIT
 ;;
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-;; General Public License for more details.
-;;
-;; You should have received a copy of the GNU General Public License
-;; along with this program; see the file COPYING.  If not, write to
-;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth
-;; Floor, Boston, MA 02110-1301, USA.
-;;
-
 ;;; Commentary:
 ;;
 ;;  core file for yaoh-emacs
@@ -29,11 +15,47 @@
 
 ;;; Code:
 
+(require 'core-const)
+(require 'core-funcs)
+(require 'core-package)
 
-;;; Load Path
+
+(defvar yaoh-emacs-initialized-p nil
+  "Whether or not yaoh-emacs initialized.")
+
+(defun yaoh-emacs/init ()
+
+  (yaoh-emacs/removes-gui-elements)
+  (prefer-coding-system 'utf-8)
+
+  (setq inhibit-startup-screen t)
+  )
+
+(defun yaoh-emacs/removes-gui-elements ()
+  "Remove the menu bar, tool bar and scroll bars."
+  (when (and (fbondp 'scroll-bar-mode) (not (eq scroll-bar-mode -1)))
+    (scroll-bar-mode -1))
+
+  (when (and (fbondp 'tool-bar-mode) (not (eq tool-bar-mode -1)))
+    (tool-bar-mode -1))
+
+  (when (and (fbondp 'menu-bar-mode) (not (eq menu-bar-mode -1)))
+    (menu-bar-mode -1))
+  )
+
+(defun yaoh-emacs/setup-startup-hook ()
+  "Add startup hook."
+  (add-hook 'emacs-startup-hook
+    (defun yaoh-emacs/startup-hook ()
+
+      ;; restore Garbage collection
+      (setq gc-cons-threshold (car yaoh-emacs-gc-cons)
+            gc-cons-percentage (cadr yaoh-emacs-gc-cons))))
+
+      (setq yaoh-emacs-initialzed-p t)
+  )
 
 
-
-
+(provide 'core-init)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; init.el ends here
+;;; core-init.el ends here
