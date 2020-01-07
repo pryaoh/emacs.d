@@ -16,7 +16,7 @@
 ;;; Code:
 
 
-(defconst yaoh-emacs-gc-cons '(100000000 0.1))
+(defconst laonemacs-gc-cons '(100000000 0.1))
 
 
 

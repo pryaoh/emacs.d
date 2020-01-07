@@ -10,11 +10,10 @@
 ;;
 ;;; Commentary:
 ;;
-;;  core file for yaoh-emacs
+;;  core file for laonemacs
 ;;
 
 ;;; Code:
-
 (defun add-to-load-path (dir) (add-to-list 'load-path dir))
 
 (defun add-to-load-path-if-exists (dir)
@@ -23,35 +22,35 @@
       (add-to-load-path dir)))
 
 
-(defvar yaoh-emacs-init-directory
+(defvar laonemacs-init-directory
   user-emacs-directory
-  "Yaoh-emacs init directory.")
+  "laonemacs init directory.")
 
-(defconst yaoh-emacs-core-directory
-  (expand-file-name (concat yaoh-emacs-init-directory "core/"))
-  "Yaoh-emacs core direcotry.")
+(defconst laonemacs-core-directory
+  (expand-file-name (concat laonemacs-init-directory "core/"))
+  "laonemacs core direcotry.")
 
-(defconst yaoh-emacs-assets-directory
-  (expand-file-name (concat yaoh-emacs-init-directory "assets/"))
-  "Yaoh-emacs asset direcotry.")
+(defconst laonemacs-assets-directory
+  (expand-file-name (concat laonemacs-init-directory "assets/"))
+  "laonemacs asset direcotry.")
 
-(defconst yaoh-emacs-tests-directory
-  (expand-file-name (concat yaoh-emacs-init-directory "tests/"))
-  "Yaoh-emacs tests direcotry.")
+(defconst laonemacs-tests-directory
+  (expand-file-name (concat laonemacs-init-directory "tests/"))
+  "laonemacs tests direcotry.")
 
-(defconst yaoh-emacs-cache-directory
-  (expand-file-name (concat yaoh-emacs-init-directory ".cache/"))
-  "Yaoh-emacs cache direcotry.")
+(defconst laonemacs-cache-directory
+  (expand-file-name (concat laonemacs-init-directory ".cache/"))
+  "laonemacs cache direcotry.")
 
-(defconst yaoh-emacs-auto-save-directory
-  (expand-file-name (concat yaoh-emacs-cache-directory "auto-save/"))
-  "Yaoh-emacs auto-save directory")
+(defconst laonemacs-auto-save-directory
+  (expand-file-name (concat laonemacs-cache-directory "auto-save/"))
+  "laonemacs auto-save directory")
 
 ;; load paths
 (mapc 'add-to-load-path
       `(
-        ,yaoh-emacs-core-directory
-        ,(concat yaoh-emacs-core-directory "libs/")
+        ,laonemacs-core-directory
+        ,(concat laonemacs-core-directory "libs/")
 
         ))
 

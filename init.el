@@ -10,13 +10,13 @@
 
 ;;; Commentary:
 ;;
-;;  init file for yaoh-emacs
+;;  init file for laonemacs
 ;;
 
 ;;; Code:
 
 (setq debug-on-error t)
-(message "start yaoh-emacs")
+(message "start laonemacs")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ++Preinitialize++
 
@@ -46,14 +46,14 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ++Initialize++
-(if (not (version<= yaoh-emacs-min-version emacs-version))
-  (error (concat "Yaoh-emacs requires emacs %s or above")
-         yaoh-emacs-min-version)
+(if (not (version<= laonemacs-emacs-min-version emacs-version))
+  (error (concat "laonemacs requires emacs %s or above")
+         laonemacs-min-version)
 
   (require 'core-init)
 
-  (yaoh-emacs/init)
-  (yaoh-emacs/setup-startup-hook)
+  (laonemacs/init)
+  (laonemacs/setup-startup-hook)
 
   ;; Start Server
   (require 'server)

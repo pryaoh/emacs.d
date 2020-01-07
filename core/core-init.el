@@ -20,18 +20,18 @@
 (require 'core-package)
 
 
-(defvar yaoh-emacs-initialized-p nil
-  "Whether or not yaoh-emacs initialized.")
+(defvar laonemacs-initialized-p nil
+  "Whether or not laonemacs initialized.")
 
-(defun yaoh-emacs/init ()
+(defun laonemacs/init ()
 
-  (yaoh-emacs/removes-gui-elements)
+  (laonemacs/removes-gui-elements)
   (prefer-coding-system 'utf-8)
 
   (setq inhibit-startup-screen t)
   )
 
-(defun yaoh-emacs/removes-gui-elements ()
+(defun laonemacs/removes-gui-elements ()
   "Remove the menu bar, tool bar and scroll bars."
   (when (and (fboundp 'scroll-bar-mode) (not (eq scroll-bar-mode -1)))
     (scroll-bar-mode -1))
@@ -43,14 +43,14 @@
     (menu-bar-mode -1))
   )
 
-(defun yaoh-emacs/setup-startup-hook ()
+(defun laonemacs/setup-startup-hook ()
   "Add startup hook."
   (add-hook 'emacs-startup-hook
-    (defun yaoh-emacs/startup-hook ()
+    (defun laonemacs/startup-hook ()
 
       ;; restore Garbage collection
-      (setq gc-cons-threshold (car yaoh-emacs-gc-cons)
-            gc-cons-percentage (cadr yaoh-emacs-gc-cons))))
+      (setq gc-cons-threshold (car dotlaonemacs-gc-cons)
+            gc-cons-percentage (cadr dotlaonemacs-gc-cons))))
 
       (setq yaoh-emacs-initialzed-p t)
   )

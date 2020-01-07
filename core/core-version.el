@@ -15,8 +15,8 @@
 
 ;;; Code:
 
-(defconst yaoh-emacs-version "0.1.0")
-(defconst yaoh-emacs-min-version "25.1")
+(defconst laonemacs-version "0.1.0")
+(defconst laonemacs-emacs-min-version "25.1")
 
 (provide 'core-version)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

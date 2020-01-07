@@ -85,7 +85,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ++Diminish++
 
-;;(use-package diminish)
+(use-package diminish)
 (use-package bind-key)
 ;; --Diminish--
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -16,16 +16,16 @@
 
 ;;; Code:
 
-(defun yaoh-emacs/system-is-mac ()
+(defun laonemacs/system-is-mac ()
   (eq system-type 'darwin))
 
-(defun yaoh-emacs/system-is-win ()
+(defun laonemacs/system-is-win ()
   (eq system-type 'windows-nt))
 
-(defun yaoh-emacs/system-is-linux ()
+(defun laonemacs/system-is-linux ()
   (eq system-type 'gun/linux))
 
-(defun yaoh-emacs/window-system-is-mac ()
+(defun laonemacs/window-system-is-mac ()
   ;; ns is returned instead of mac on Emacs 25+
   (memq (window-system) '(mac ns)))
 
