@@ -33,13 +33,13 @@
 
 (defun yaoh-emacs/removes-gui-elements ()
   "Remove the menu bar, tool bar and scroll bars."
-  (when (and (fbondp 'scroll-bar-mode) (not (eq scroll-bar-mode -1)))
+  (when (and (fboundp 'scroll-bar-mode) (not (eq scroll-bar-mode -1)))
     (scroll-bar-mode -1))
 
-  (when (and (fbondp 'tool-bar-mode) (not (eq tool-bar-mode -1)))
+  (when (and (fboundp 'tool-bar-mode) (not (eq tool-bar-mode -1)))
     (tool-bar-mode -1))
 
-  (when (and (fbondp 'menu-bar-mode) (not (eq menu-bar-mode -1)))
+  (when (and (fboundp 'menu-bar-mode) (not (eq menu-bar-mode -1)))
     (menu-bar-mode -1))
   )
 

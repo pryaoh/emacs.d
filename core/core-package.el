@@ -27,6 +27,12 @@
     (setq package-selected-packages value)))
 
 
+;;Initialize packages
+(unless (bound-and-true-p package--initialized) ; To avoid warnings in 27
+   (setq package-enable-at-startup nil)          ; To prevent initializing twice
+   (package-initialize))
+
+
 ;; set package files location
 ;; @See https://www.gnu.org/software/emacs/manual/html_node/emacs/Package-Files.html#Package-Files
 (setq package-user-dir (expand-file-name "elpa" user-emacs-directory))
@@ -39,7 +45,6 @@
 			   ("melpa"     . "http://melpa.org/packages/")
         ))
 
-≈
 ;; set use-package-verbose to t for interpreted .emacs,
 ;; and to nil for byte-compiled .emacs.elc.
 (eval-and-compile
@@ -48,18 +53,15 @@
 
 ;; Install use-package if not installed
 (unless (package-installed-p 'use-package)
- (package-refresh-contents)
- (package-install 'use-package))
+  (package-refresh-contents)
+  (package-install 'use-package))
+
 
 (eval-and-compile
  (setq use-package-always-ensure t)
  (setq use-package-expand-minimally t)
  (setq use-package-compute-statistics t)
  (setq use-package-enable-imenu-support t))
-
-(eval-when-compile
- (require 'use-package)
- (require 'bind-key))
 
 
 ;; --Configure PackageManager-
@@ -81,22 +83,10 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ++Paradox++
-(use-package paradox
-             :defer nil
-            ;; :custom
-             (paradox-github-token t) ;; prevent github intergration
-             :config
-             (paradox-enable))
-
-;; --Paradox--
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ++Diminish++
 
-(use-package diminish)
-
+;;(use-package diminish)
+(use-package bind-key)
 ;; --Diminish--
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
