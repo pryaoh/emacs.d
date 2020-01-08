@@ -20,7 +20,7 @@
   "List of themes.")
 
 
-(defvar dot-default-font '("Source Code Pro"
+(defvar dotlaonemacs-default-font '("Source Code Pro"
                                     :size 13
                                     :weight normal
                                     :width normal
@@ -29,6 +29,6 @@
 
 
 
-(provide 'core-custom)
+(provide 'core-dotlaonemacs)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; core-custom.el ends here
+;;; core-dotlaonemacs.el ends here

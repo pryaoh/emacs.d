@@ -1,0 +1,87 @@
+;;; init.el --- -*- lexical-binding: t -*-
+;;
+;; CopyRight (C) 2008-2020 Younan oh
+
+;; Author: Younan Oh <pryaoh@gmail.com>
+
+;; This file is not part of GNU Emacs.
+;;
+;; LICENSE:MIT
+
+;;; Commentary:
+;;
+;;  emacs intiialization for testing
+;;  Copyed from https://github.com/gonewest818/elisp-lint/blob/master/.emacs/init.el
+;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Set `user-emacs-directory' to avoid overwriting $HOME/.emacs.d
+;; See also: https://debbugs.gnu.org/cgi/bugreport.cgi?bug=15539#66
+
+(setq user-init-file (or load-file-name (buffer-file-name)))
+(setq user-emacs-directory  (file-name-directory user-init-file))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Make sure customize data doesn't land in this file
+
+(setq custom-file (concat user-emacs-directory ".emacs-custom.el"))
+(when (file-readable-p custom-file) (load custom-file))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Set load-path to include the .el files, test files,
+
+(add-to-list 'load-path (expand-file-name "../core" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "../tests/core" user-emacs-directory))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Configure melpa and melpa-stable
+
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives
+             '("melpa"        . "https://melpa.org/packages/") t)
+(setq package-enable-at-startup nil)
+(package-initialize)
+(when (not package-archive-contents)
+    (package-refresh-contents))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Bootstrap `use-package'
+
+;; By default these will install from melpa anyway, but using
+;; `package-pinned-packages' allows one to pin to melpa-stable
+;; if necessary
+
+(setq package-pinned-packages
+      '((bind-key           . "melpa")
+        (diminish           . "melpa")
+        (use-package        . "melpa")))
+
+(dolist (p (mapcar 'car package-pinned-packages))
+  (unless (package-installed-p p)
+    (package-install p)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Install `quelpa' and `quelpa-use-package'
+
+(use-package quelpa
+  ;; :pin melpa-stable
+  :ensure t)
+
+(use-package quelpa-use-package
+  ;; :pin melpa-stable
+  :ensure t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Load project dependencies from elsewhere
+
+(load (concat user-emacs-directory "dependencies.el"))
+
+
+
+;;; init.el ends here

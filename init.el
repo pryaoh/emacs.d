@@ -15,8 +15,6 @@
 
 ;;; Code:
 
-(setq debug-on-error t)
-(message "start laonemacs")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ++Preinitialize++
 
@@ -26,12 +24,10 @@
 
 (defconst emacs-start-time (current-time))
 
-(message "gc collect disabled")
 ;; avoid garbage collection during startup
 (setq gc-cons-threshold my-gc-cons-threshold
       gc-cons-percentage my-gc-cons-percentage)
 
-(message "load paths")
 ;; Update Load paths
 (load (concat (file-name-directory load-file-name)
               "core/core-version.el")

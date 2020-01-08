@@ -17,3 +17,6 @@
 ;; the package manager before loading the init file, so this file is neither
 ;; needed nor loaded on those versions.
 (setq package-enable-at-startup nil)
+
+
+;;; early-init.el ends here

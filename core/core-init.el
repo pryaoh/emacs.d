@@ -29,6 +29,9 @@
   (prefer-coding-system 'utf-8)
 
   (setq inhibit-startup-screen t)
+
+
+
   )
 
 (defun laonemacs/removes-gui-elements ()
